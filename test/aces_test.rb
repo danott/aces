@@ -91,4 +91,71 @@ class AcesTest < Minitest::Test
       FailureService.set(success: ->(_result) { flunk "Should not be called" }).call(nil)
     end
   end
+
+  class CurriedService
+    include Aces::Service
+
+    def initialize(first, second, a:, b:)
+      @first = first
+      @second = second
+      @a = a
+      @b = b
+    end
+
+    def call
+      success first: @first, second: @second, a: @a, b: @b
+    end
+  end
+
+  def test_currying_args_as_a_theoretical_api
+    prepared = CurriedService.set(success: :identity)
+    prepared.set("first_position",  b: "keyword_b")
+    result = prepared.call("second_position", a: "keyword_a")
+    assert_equal "first_position", result.first
+    assert_equal "second_position", result.second
+    assert_equal "keyword_a", result.a
+    assert_equal "keyword_b", result.b
+  end
+
+  def test_currying_plus_composing_as_a_theoretical_api
+    skip "None of these test services exist"
+
+    calculate_tax = CalculateTax.set(subtotal_amount: item.amount, state: "TX")
+    charge_card = ChargeCard.set(device: some_credit_card, subtotal_amount: item.amount)
+    create_shipping_label = CreateShippingLabel.set(address: "wherever")
+
+    # manual with explit post conditionals
+    result = calculate_tax.call
+    result = result.merge charge_card.call(taxes_amount: result.taxes_amount) if result.success?
+    result = result.merge create_shipping_label.call if result.success?
+
+    # or *magic* with procs?
+    result = calculate_tax.call
+    result = result.chain { charge_card.call(taxes_amount: result.taxes_amount) }
+    result = result.chain { create_shipping_label.call }
+  end
+
+  def test_producing_cheap_services_from_lambdas
+    cheap_service = Aces.lambda do |succeed, value:|
+      succeed ? success(value: value) : failure(value: value)
+    end
+
+    result = cheap_service.call(true, value: 23)
+
+    assert_predicate result, :success?
+    assert_equal 23, result.value
+
+    result = cheap_service.call(false, value: 42)
+
+    refute_predicate result, :success?
+    assert_equal 42, result.value
+
+    cheap_malformed_service = Aces.lambda do |echo_value|
+      echo_value
+    end
+
+    assert_raises Aces::ResultMissing do
+      cheap_malformed_service.call "dunk"
+    end
+  end
 end
