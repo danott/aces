@@ -7,10 +7,10 @@ Gem::Specification.new do |spec|
   spec.name          = "aces"
   spec.version       = Aces::VERSION
   spec.authors       = ["Dan Ott"]
-  spec.email         = ["thedanielott@gmail.com"]
+  spec.email         = ["rubygems@danott.us"]
 
-  spec.summary       = %q{Service objects}
-  spec.description   = %q{Service objects}
+  spec.summary       = %q{[HIGHLEY EXPERIMENTAL] Service objects that always land}
+  spec.description   = %q{[HIGHLEY EXPERIMENTAL] Service objects that always land}
   spec.homepage      = ""
   spec.license       = "MIT"
 

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    aces (0.1.0)
+    aces (0.0.1.beta1)
       activesupport
 
 GEM

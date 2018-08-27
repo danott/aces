@@ -1,8 +1,8 @@
-# Aces
+# Aces [HIGHLY EXPERIMENTAL]
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/aces`. To experiment with that code, run `bin/console` for an interactive prompt.
+Services objects that always land.
 
-TODO: Delete this and the text above, and describe your gem
+This is my playground for playing with some ideas for how to build composable service objects that are easy to learn at a glance, and highly powerful with experience.
 
 ## Installation
 
@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+TODO: I'll write some usage instructions if this ever gets beyond experimentation.
 
 ## Development
 
