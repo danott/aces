@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.email         = ["rubygems@danott.us"]
 
   spec.summary       = %q{[HIGHLEY EXPERIMENTAL] Service objects that always land}
-  spec.description   = %q{[HIGHLEY EXPERIMENTAL] Service objects that always land}
-  spec.homepage      = ""
+  spec.description   = %q{My playground for building service objects that feel right in Ruby}
+  spec.homepage      = "https://github.com/danott/aces"
   spec.license       = "MIT"
 
   # Specify which files should be added to the gem when it is released.
